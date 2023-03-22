@@ -6,5 +6,6 @@
         public string Description { get; set; }
         public bool isElectric { get; set; }
         public double rentCost { get; set; }
+        public string image { get; set; }
     }
 }

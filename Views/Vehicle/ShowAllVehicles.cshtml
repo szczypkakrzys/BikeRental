@@ -4,11 +4,21 @@
     ViewData["Title"] = "ShowAllVehicles";
 }
 
-<h1>ShowAllVehicles</h1>
+<h1>Nasze rowery</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@*<div class="container-fluid text-center">
+  <div class="row">
+    <div class="col">
+      Column
+    </div>
+    <div class="col">
+      Column
+    </div>
+    <div class="col">
+      Column
+    </div>
+  </div>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -26,28 +36,17 @@
             </th>
             <th></th>
         </tr>
-    </thead>
-    <tbody>
+    </thead>*@
+    
+<div class="container-fluid text-center">
+<div class="row">
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isElectric)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.rentCost)
-            </td>
-            <td>
-                     <a class="btn btn-outline-dark" asp-controller="Vehicle" asp-action="VehicleDetails" asp-route-id="@item.Id">Zobacz szczegóły</a>
-                    <button type="button" class="btn btn-outline-info"asp-controller="Vehicle" asp-action="VehicleDetails" asp-route-id="@item.Id">Zobacz szczegóły</button>
-               
-            </td>
-        </tr>
+    <div class="col">
+      <img class="img-fluid" src=@item.image alt="bikePhoto" />
+                <p class="text-center">Cena za 1 dzień: <b>@item.rentCost zł </b></p>
+      <a class="btn btn-outline-info" asp-controller="Vehicle" asp-action="VehicleDetails" asp-route-id="@item.Id">Zobacz szczegóły</a>  
+    </div>
 }
-    </tbody>
-</table>
+</div>
+</div>
+  

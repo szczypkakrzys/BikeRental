@@ -4,39 +4,22 @@
     ViewData["Title"] = "VehicleDetails";
 }
 
-<h1>VehicleDetails</h1>
+<h1>Szczegóły pojazdu</h1>
 
-<div>
-    <h4>Vehicle</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.isElectric)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.isElectric)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.rentCost)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.rentCost)
-        </dd>
-    </dl>
+<div class="w-50 h-50 mx-auto">
+    
+    <img class="img-fluid" src=@Model.image alt="bikePhoto" />
+    @if(Model.isElectric)
+    {
+     <p class="text-center">Model elektryczny</p>
+    }
+    <p class="text-start">@Model.Description</p>
+    <p class="text-center">Cena za 1 dzień: <b>@Model.rentCost zł </b></p>
+    <div class="container text-center">
+        <a class="btn btn-success">Zarezerwuj teraz!</a>
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+
+<a class="btn btn-outline-primary" asp-controller="Vehicle" asp-action="ShowAllVehicles">Powrót</a>
