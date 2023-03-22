@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BikeRental.Models.Vehicle>
+
+@{
+    ViewData["Title"] = "ShowAllVehicles";
+}
+
+<h1>ShowAllVehicles</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isElectric)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.rentCost)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isElectric)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rentCost)
+            </td>
+            <td>
+                     <a class="btn btn-outline-dark" asp-controller="Vehicle" asp-action="VehicleDetails" asp-route-id="@item.Id">Zobacz szczegóły</a>
+                    <button type="button" class="btn btn-outline-info"asp-controller="Vehicle" asp-action="VehicleDetails" asp-route-id="@item.Id">Zobacz szczegóły</button>
+               
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
