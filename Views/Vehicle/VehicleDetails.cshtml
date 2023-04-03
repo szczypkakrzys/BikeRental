@@ -8,13 +8,13 @@
 
 <div class="w-50 h-50 mx-auto">
     
-    <img class="img-fluid" src=@Model.image alt="bikePhoto" />
+    <img class="img-fluid" src=@Model.Image alt="bikePhoto" />
     @if(Model.isElectric)
     {
      <p class="text-center">Model elektryczny</p>
     }
     <p class="text-start">@Model.Description</p>
-    <p class="text-center">Cena za 1 dzień: <b>@Model.rentCost zł </b></p>
+    <p class="text-center">Cena za 1 dzień: <b>@Model.RentCost zł </b></p>
     <div class="container text-center">
         <a class="btn btn-success">Zarezerwuj teraz!</a>
     </div>

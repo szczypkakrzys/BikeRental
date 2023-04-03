@@ -10,8 +10,8 @@
 <div class="row">
 @foreach (var item in Model) {
     <div class="col">
-      <img class="img-fluid" src=@item.image alt="bikePhoto" />
-      <p class="text-center">Cena za 1 dzień: <b>@item.rentCost zł </b></p>
+      <img class="img-fluid" src=@item.Image alt="bikePhoto" />
+      <p class="text-center">Cena za 1 dzień: <b>@item.RentCost zł </b></p>
       <a class="btn btn-outline-info" asp-controller="Vehicle" asp-action="VehicleDetails" asp-route-id="@item.Id">Zobacz szczegóły</a>  
     </div>
 }
