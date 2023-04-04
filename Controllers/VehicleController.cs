@@ -1,16 +1,52 @@
 ﻿using BikeRental.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BikeRental.Controllers
 {
     public class VehicleController : Controller
     {
+        private IRepository<Vehicle> _vehicleRepository;
+        public VehicleController()
+        {
+            _vehicleRepository = new RepositoryService<Vehicle>(new DatabaseContext());
+        }
+        //public VehicleController(IRepository<Vehicle> vehicleRepository)
+        //{
+        //    _vehicleRepository = vehicleRepository;
+        //}
+
+
         public IActionResult Index()
         {
             return View();
         }
 
-        
+        public IActionResult ShowAllVehicles()
+        {
+            var model = _vehicleRepository.GetAllRecords();
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult AddVehicle()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddVehicle(Vehicle vehicle)
+        {
+           _vehicleRepository.Add(vehicle);
+            return View();
+        }
+
+        //public IActionResult VehicleDetails(int id)
+        //{
+        //    var info = VehiclesList.Find(x => x.Id == id);
+        //    return View(info);
+        //}
+
+        //not important for now :)
         private List<Vehicle> VehiclesList = new List<Vehicle>()
         {
             new Vehicle {Id=1, isElectric=false, Description="Korzystając z doświadczenia kolarzy powstał KROSS Level 11.0. Prawdziwa maszyna, której przeznaczeniem jest agresywna jazda w terenie czy walka na kresce.", RentCost= 200, Image="https://kross.eu/media/cache/gallery/rc/zljyawzs/images/38/38297/KRLV1129X19M002406-KR-LEVEL-11.0-NIE-BIA-P-1.jpg"},
@@ -18,15 +54,6 @@ namespace BikeRental.Controllers
             new Vehicle {Id=3, isElectric=true, Description="Podstawowy model roweru hardtail wyposażonego we wspomaganie elektryczne. Ten e-bike to doskonały wybór dla każdego chcącego sprawdzić swoich sił w nowej dyscyplinie lub poszukującego roweru do objechania trasy wyścigu w komfortowych warunkach bez nadmiernego zmęczenia organizmu przed ważnym startem.", RentCost=250, Image="https://kross.eu/media/cache/gallery/rc/9jbbdd9a/images/50/50098/KRVB1Z29X20M005659-KR-Level-BOOST-1.0-CZA_GRA-LIM-P-1.jpg"}
         };
 
-        public IActionResult ShowAllVehicles()
-        {
-            return View(VehiclesList);
-        }
 
-        public IActionResult VehicleDetails(int id)
-        {
-            var info = VehiclesList.Find(x => x.Id == id);
-            return View(info);
-        }
     }
 }
