@@ -1,4 +1,4 @@
-﻿namespace BikeRental.Models
+﻿namespace BikeRental.DAL
 {
     public interface IRepository<T>
     {

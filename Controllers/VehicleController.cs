@@ -1,4 +1,6 @@
-﻿using BikeRental.Models;
+﻿using BikeRental.DAL;
+using BikeRental.Models;
+using BikeRental.Models.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

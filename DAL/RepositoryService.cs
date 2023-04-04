@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace BikeRental.Models
+namespace BikeRental.DAL
 {
     public class RepositoryService<T> : IRepository<T> where T : class
     {
@@ -23,8 +23,8 @@ namespace BikeRental.Models
         }
         public T GetSingle(Guid id)
         {
-           return _set.Find(id); //?????????
-           
+            return _set.Find(id); //?????????
+
         }
         public void Save()
         {
