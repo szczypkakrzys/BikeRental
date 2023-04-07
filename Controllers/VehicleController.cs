@@ -12,7 +12,7 @@ namespace BikeRental.Controllers
         {
             _vehicleRepository = new RepositoryService<Vehicle>(new DatabaseContext());
             //temporary solution to add vehicles
-            foreach(var item in VehiclesList)
+            foreach (var item in VehiclesList)
             {
                 _vehicleRepository.Add(item);
             }
@@ -37,16 +37,28 @@ namespace BikeRental.Controllers
         [HttpPost]
         public IActionResult AddVehicle(Vehicle vehicle)
         {
-           _vehicleRepository.Add(vehicle);
+            _vehicleRepository.Add(vehicle);
             return View();
         }
 
         public IActionResult VehicleDetails(Guid id)
         {
-            var info = _vehicleRepository.GetSingle(id);
+            Vehicle info = _vehicleRepository.GetSingle(id);
             return View(info);
         }
-
+        [HttpGet]
+        public IActionResult EditVehicle(Guid id)
+        {
+            Vehicle info = _vehicleRepository.GetSingle(id);
+            return View(info);
+        }
+        [HttpPost]
+        public IActionResult EditVehicle(Vehicle vehicle)
+        {
+            _vehicleRepository.Edit(vehicle);
+            return RedirectToAction("ShowAllVehicles","Vehicle");
+            
+        }
 
         private List<Vehicle> VehiclesList = new List<Vehicle>()
         {
