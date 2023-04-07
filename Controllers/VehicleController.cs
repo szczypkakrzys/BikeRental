@@ -57,9 +57,22 @@ namespace BikeRental.Controllers
         {
             _vehicleRepository.Edit(vehicle);
             return RedirectToAction("ShowAllVehicles","Vehicle");
-            
         }
 
+        [HttpGet]
+        public IActionResult DeleteVehicle(Guid id)
+        {
+            Vehicle info = _vehicleRepository.GetSingle(id);
+            return View(info);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteVehicle(Vehicle vehicle)
+        {
+            _vehicleRepository.Delete(vehicle);
+            return RedirectToAction("ShowAllVehicles", "Vehicle");
+        }
+        
         private List<Vehicle> VehiclesList = new List<Vehicle>()
         {
             new Vehicle {isElectric=false, Description="Korzystając z doświadczenia kolarzy powstał KROSS Level 11.0. Prawdziwa maszyna, której przeznaczeniem jest agresywna jazda w terenie czy walka na kresce.", RentCost= 200, Image="https://kross.eu/media/cache/gallery/rc/zljyawzs/images/38/38297/KRLV1129X19M002406-KR-LEVEL-11.0-NIE-BIA-P-1.jpg", BrandName="KROSS", Model=" Level 11.0"},
