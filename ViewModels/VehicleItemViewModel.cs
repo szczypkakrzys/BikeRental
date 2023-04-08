@@ -4,6 +4,7 @@ namespace BikeRental.ViewModels
 {
     public class VehicleItemViewModel
     {
-        public List<Vehicle> VehiclesList { get; set; }
+        public Guid Id { get; set; }
+        public string CategoryName { get; set; }
     }
 }

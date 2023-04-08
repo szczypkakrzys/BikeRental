@@ -4,6 +4,13 @@ namespace BikeRental.ViewModels
 {
     public class VehicleDetailViewModel
     {
-       public Vehicle VehicleDetails { get; set; }
+        public Guid Id { get; set; }
+        public string BrandName { get; set; }
+        public string Model { get; set; }
+        public string Description { get; set; }
+        public bool isElectric { get; set; }
+        public double RentCost { get; set; }
+        public string Image { get; set; }
+        public string categoryName{ get; set; }
     }
 }
