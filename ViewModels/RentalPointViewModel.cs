@@ -1,6 +1,8 @@
-﻿namespace BikeRental.Models
+﻿using BikeRental.Models;
+
+namespace BikeRental.ViewModels
 {
-    public class RentalPoint
+    public class RentalPointViewModel
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }
