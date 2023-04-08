@@ -23,7 +23,7 @@ namespace BikeRental.DAL
         }
         public T GetSingle(Guid id)
         {
-            return _set.Find(id); //?????????
+            return _set.Find(id); 
 
         }
         public void Save()
