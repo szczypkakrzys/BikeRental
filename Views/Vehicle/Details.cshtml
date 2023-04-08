@@ -1,7 +1,7 @@
 ﻿@model BikeRental.Models.Vehicle
 
 @{
-    ViewData["Title"] = "VehicleDetails";
+    ViewData["Title"] = "Details";
 }
 
 <h1>Szczegóły pojazdu</h1>
@@ -19,8 +19,8 @@
         <a class="btn btn-success">Zarezerwuj teraz!</a>
     </div>
 </div>
-<a class="btn btn-outline-primary" asp-controller="Vehicle" asp-action="EditVehicle" asp-route-id="@Model.Id">Edycja</a>
+<a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@Model.Id">Edycja</a>
 
-<a class="btn btn-outline-primary" asp-controller="Vehicle" asp-action="ShowAllVehicles">Powrót</a>
+<a class="btn btn-outline-primary" asp-action="Index">Powrót</a>
 
-<a class="btn btn-outline-danger" asp-controller="Vehicle" asp-action="DeleteVehicle" asp-route-id="@Model.Id">Usuń</a>
+<a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@Model.Id">Usuń</a>

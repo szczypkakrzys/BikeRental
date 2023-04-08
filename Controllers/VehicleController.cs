@@ -20,57 +20,50 @@ namespace BikeRental.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult ShowAllVehicles()
-        {
             var model = _vehicleRepository.GetAllRecords();
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult AddVehicle()
+        public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult AddVehicle(Vehicle vehicle)
+        public IActionResult Create(Vehicle vehicle)
         {
             _vehicleRepository.Add(vehicle);
-            return View();
+            return RedirectToAction("Index");
         }
 
-        public IActionResult VehicleDetails(Guid id)
+        public IActionResult Details(Guid id)
         {
             Vehicle info = _vehicleRepository.GetSingle(id);
             return View(info);
         }
         [HttpGet]
-        public IActionResult EditVehicle(Guid id)
+        public IActionResult Edit(Guid id)
         {
-            Vehicle info = _vehicleRepository.GetSingle(id);
-            return View(info);
+            return Details(id);
         }
         [HttpPost]
-        public IActionResult EditVehicle(Vehicle vehicle)
+        public IActionResult Edit(Vehicle vehicle)
         {
             _vehicleRepository.Edit(vehicle);
-            return RedirectToAction("ShowAllVehicles","Vehicle");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult DeleteVehicle(Guid id)
+        public IActionResult Delete(Guid id)
         {
-            Vehicle info = _vehicleRepository.GetSingle(id);
-            return View(info);
+            return Details(id);
         }
 
         [HttpPost]
-        public IActionResult DeleteVehicle(Vehicle vehicle)
+        public IActionResult Delete(Vehicle vehicle)
         {
             _vehicleRepository.Delete(vehicle);
-            return RedirectToAction("ShowAllVehicles", "Vehicle");
+            return RedirectToAction("Index");
         }
         
         private List<Vehicle> VehiclesList = new List<Vehicle>()
