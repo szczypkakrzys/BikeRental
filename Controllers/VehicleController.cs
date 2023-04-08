@@ -30,7 +30,7 @@ namespace BikeRental.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddVehicle()
+        public IActionResult AddVehicle()
         {
             return View();
         }
