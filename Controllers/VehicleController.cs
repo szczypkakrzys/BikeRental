@@ -1,16 +1,21 @@
-﻿using BikeRental.DAL;
+﻿using AutoMapper;
+using BikeRental.DAL;
 using BikeRental.Models;
+using BikeRental.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace BikeRental.Controllers
 {
     public class VehicleController : Controller
     {
         private IRepository<Vehicle> _vehicleRepository;
-        public VehicleController()
+        private readonly IMapper _mapper;
+        public VehicleController(IMapper mapper)
         {
             _vehicleRepository = new RepositoryService<Vehicle>(new DatabaseContext());
+            _mapper = mapper;
             //temporary solution to add vehicles
             foreach (var item in VehiclesList)
             {
@@ -18,10 +23,12 @@ namespace BikeRental.Controllers
             }
         }
 
-        public IActionResult Index()
+        public IActionResult Index() 
         {
             var model = _vehicleRepository.GetAllRecords();
-            return View(model);
+            var listViewModel = model.Select(viewModel => _mapper.Map<VehicleItemViewModel>(viewModel)).ToList();
+         
+            return View(listViewModel);
         }
 
         [HttpGet]
@@ -30,16 +37,18 @@ namespace BikeRental.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Vehicle vehicle)
+        public IActionResult Create(VehicleDetailViewModel vehicle) 
         {
-            _vehicleRepository.Add(vehicle);
+            Vehicle vehicleModel = _mapper.Map<Vehicle>(vehicle);
+            _vehicleRepository.Add(vehicleModel);
             return RedirectToAction("Index");
         }
 
         public IActionResult Details(Guid id)
         {
             Vehicle info = _vehicleRepository.GetSingle(id);
-            return View(info);
+            VehicleDetailViewModel vehicleDetails = _mapper.Map<VehicleDetailViewModel>(info);
+            return View(vehicleDetails);
         }
         [HttpGet]
         public IActionResult Edit(Guid id)
@@ -47,9 +56,10 @@ namespace BikeRental.Controllers
             return Details(id);
         }
         [HttpPost]
-        public IActionResult Edit(Vehicle vehicle)
+        public IActionResult Edit(VehicleDetailViewModel vehicle)
         {
-            _vehicleRepository.Edit(vehicle);
+            Vehicle vehicleModel = _mapper.Map<Vehicle>(vehicle);
+            _vehicleRepository.Edit(vehicleModel);
             return RedirectToAction("Index");
         }
 
@@ -60,9 +70,10 @@ namespace BikeRental.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(Vehicle vehicle)
+        public IActionResult Delete(VehicleDetailViewModel vehicle)
         {
-            _vehicleRepository.Delete(vehicle);
+            Vehicle vehicleModel = _mapper.Map<Vehicle>(vehicle);
+            _vehicleRepository.Delete(vehicleModel);
             return RedirectToAction("Index");
         }
         
@@ -73,6 +84,8 @@ namespace BikeRental.Controllers
             new Vehicle {isElectric=true, Description="Podstawowy model roweru hardtail wyposażonego we wspomaganie elektryczne. Ten e-bike to doskonały wybór dla każdego chcącego sprawdzić swoich sił w nowej dyscyplinie lub poszukującego roweru do objechania trasy wyścigu w komfortowych warunkach bez nadmiernego zmęczenia organizmu przed ważnym startem.", RentCost=250, Image="https://kross.eu/media/cache/gallery/rc/9jbbdd9a/images/50/50098/KRVB1Z29X20M005659-KR-Level-BOOST-1.0-CZA_GRA-LIM-P-1.jpg",BrandName="KROSS", Model=" Level 11.2"}
         };
 
+        public IMapper Mapper => Mapper1;
 
+        public IMapper Mapper1 => _mapper;
     }
 }
