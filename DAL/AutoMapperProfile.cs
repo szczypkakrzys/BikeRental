@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BikeRental.Controllers;
 using BikeRental.Models;
 using BikeRental.ViewModels;
 
@@ -11,6 +12,9 @@ namespace BikeRental.DAL
             CreateMap<Vehicle, VehicleDetailViewModel>();
             CreateMap<Vehicle, VehicleItemViewModel>();
             CreateMap<VehicleDetailViewModel, Vehicle>();
+
+            CreateMap<RentalPoint, RentalPointViewModel>();
+            CreateMap<RentalPointViewModel, RentalPoint> ();
         }
     }
 }
