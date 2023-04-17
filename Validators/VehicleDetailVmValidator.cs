@@ -7,14 +7,22 @@ namespace BikeRental.Validators
     {
         public VehicleDetailVmValidator() 
         {
-            RuleFor(x => x.BrandName).NotEmpty().MinimumLength(3).WithMessage("Nazwa marki musi wynosić min. 3 znaki");
-            RuleFor(x => x.Model).NotEmpty().WithMessage("Oznaczenie modelu jest wymagane");
-            RuleFor(x => x.Description).MinimumLength(20).WithMessage("Opis musi wynosić przynajmniej 20 znaków");
-            RuleFor(x => x.RentCost).GreaterThan(0).WithMessage("Cena wynajmju musi być wartością dodatnią");
-            RuleFor(x => x.Image).Must(IsValidUrl).WithMessage("Niepoprawny format URL");
+            RuleFor(x => x.BrandName)
+                .NotEmpty().WithMessage("Pole nie może być puste")
+                .MinimumLength(3).WithMessage("Nazwa marki musi zawierać min. 3 znaki");
+            RuleFor(x => x.Model)
+                .NotEmpty().WithMessage("Oznaczenie modelu jest wymagane");
+            RuleFor(x => x.Description)
+                .NotEmpty().WithMessage("Pole nie może być puste")
+                .MinimumLength(20).WithMessage("Opis musi zawierać przynajmniej 20 znaków");
+            RuleFor(x => x.RentCost)
+                .NotEmpty().WithMessage("Pole nie może być puste")
+                .GreaterThanOrEqualTo(0.0).WithMessage("Cena wynajmu musi być wartością dodatnią");
+            RuleFor(x => x.Image)
+                .NotEmpty().WithMessage("Pole nie może być puste")
+                .Must(IsValidUrl).WithMessage("Niepoprawny format URL");
             //TODO: category name
-            //temporarily:
-            //RuleFor(x => x.categoryName).NotNull().WithMessage("Musisz podać nazwę kategorii");
+           
         }
 
         private bool IsValidUrl(string url)
@@ -23,6 +31,6 @@ namespace BikeRental.Validators
             return Uri.TryCreate(url, UriKind.Absolute, out uriResult) &&
                     (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
         }
-
+      
     }
 }
