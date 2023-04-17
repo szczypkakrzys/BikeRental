@@ -1,9 +1,14 @@
 ﻿using AutoMapper;
 using BikeRental.DAL;
 using BikeRental.Models;
+using BikeRental.Validators;
 using BikeRental.ViewModels;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Globalization;
 
 namespace BikeRental.Controllers
@@ -12,10 +17,12 @@ namespace BikeRental.Controllers
     {
         private IRepository<Vehicle> _vehicleRepository;
         private readonly IMapper _mapper;
-        public VehicleController(IMapper mapper)
+        private IValidator<VehicleDetailViewModel> _validator;
+        public VehicleController(IMapper mapper, IValidator<VehicleDetailViewModel> validator)
         {
             _vehicleRepository = new RepositoryService<Vehicle>(new DatabaseContext());
             _mapper = mapper;
+            _validator = validator;
             //temporary solution to add vehicles
             foreach (var item in VehiclesList)
             {
@@ -39,6 +46,22 @@ namespace BikeRental.Controllers
         [HttpPost]
         public IActionResult Create(VehicleDetailViewModel vehicle) 
         {
+            ValidationResult result = _validator.Validate(vehicle);
+            if (!result.IsValid)
+            {
+                //server-side validation testing
+                //var modelStateDictionary = new ModelStateDictionary();
+                //foreach(ValidationFailure failure in result.Errors)
+                //{
+                //    modelStateDictionary.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                //}
+               
+                //return ValidationProblem(modelStateDictionary);
+
+                //client-side :)
+                return View(vehicle);
+            }
+
             Vehicle vehicleModel = _mapper.Map<Vehicle>(vehicle);
             _vehicleRepository.Add(vehicleModel);
             return RedirectToAction("Index");
@@ -58,6 +81,21 @@ namespace BikeRental.Controllers
         [HttpPost]
         public IActionResult Edit(VehicleDetailViewModel vehicle)
         {
+            ValidationResult result = _validator.Validate(vehicle);
+            if (!result.IsValid)
+            {
+                //server-side validation testing
+                //var modelStateDictionary = new ModelStateDictionary();
+                //foreach(ValidationFailure failure in result.Errors)
+                //{
+                //    modelStateDictionary.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                //}
+
+                //return ValidationProblem(modelStateDictionary);
+
+                //client-side :)
+                return View(vehicle);
+            }
             Vehicle vehicleModel = _mapper.Map<Vehicle>(vehicle);
             _vehicleRepository.Edit(vehicleModel);
             return RedirectToAction("Index");
