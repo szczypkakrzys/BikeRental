@@ -9,12 +9,11 @@ namespace BikeRental.DAL
     {
         public AutoMapperProfile() 
         {
-            CreateMap<Vehicle, VehicleDetailViewModel>();
+            CreateMap<Vehicle, VehicleDetailViewModel>().ReverseMap();
             CreateMap<Vehicle, VehicleItemViewModel>();
-            CreateMap<VehicleDetailViewModel, Vehicle>();
+            CreateMap<RentalPoint, RentalPointViewModel>().ReverseMap();
+            CreateMap<Reservation, ReservationViewModel>().ReverseMap();
 
-            CreateMap<RentalPoint, RentalPointViewModel>();
-            CreateMap<RentalPointViewModel, RentalPoint> ();
         }
     }
 }

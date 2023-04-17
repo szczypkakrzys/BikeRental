@@ -1,6 +1,8 @@
 using BikeRental.Validators;
 using BikeRental.ViewModels;
 using FluentValidation;
+using FluentValidation.AspNetCore; 
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +13,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 //FluentValidation
+builder.Services.AddFluentValidation();
 builder.Services.AddScoped <IValidator<VehicleDetailViewModel>, VehicleDetailVmValidator>();
+builder.Services.AddScoped<IValidator<ReservationViewModel>, ReservationVmValidator>();
+
+
+
 
 
 var app = builder.Build();

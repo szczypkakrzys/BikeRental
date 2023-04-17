@@ -2,9 +2,10 @@
 {
     public class Reservation
     {
-        public int Id { get; set; }
-        public int RentalPointId { get; set; }
-        public List<Vehicle> ReservedVehicles { get; set; }
+        public Guid Id { get; set; }
+        public Guid RentalPointId { get; set; }
+        public ICollection<Vehicle> ReservedVehicles { get; set; }
+        public int TotalCost { get; set; }
         public DateTime ReservationStart { get; set; }
         public DateTime ReservationEnd { get; set; }
     }

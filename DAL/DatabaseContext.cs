@@ -1,5 +1,6 @@
 ﻿using BikeRental.Models;
 using Microsoft.EntityFrameworkCore;
+using BikeRental.ViewModels;
 
 namespace BikeRental.DAL
 {
@@ -15,5 +16,7 @@ namespace BikeRental.DAL
         {
             optionsBuilder.UseInMemoryDatabase(databaseName: "temporaryDb");
         }
+
+        public DbSet<BikeRental.ViewModels.ReservationViewModel>? ReservationViewModel { get; set; }
     }
 }
