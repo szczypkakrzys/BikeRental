@@ -9,5 +9,7 @@ namespace BikeRental.ViewModels
         public string Location { get; set; }
         public List<Vehicle>? AllVehiclesList { get; set; }
         public List<Reservation>? ReservationsList { get; set; }
+        public string EmailAdress { get; set; }
+        public string phoneNumber { get; set; }
     }
 }

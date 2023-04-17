@@ -16,6 +16,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddFluentValidation();
 builder.Services.AddScoped <IValidator<VehicleDetailViewModel>, VehicleDetailVmValidator>();
 builder.Services.AddScoped<IValidator<ReservationViewModel>, ReservationVmValidator>();
+builder.Services.AddScoped<IValidator<RentalPointViewModel>, RentalPointVmValidator>();
 
 
 

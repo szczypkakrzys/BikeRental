@@ -7,5 +7,7 @@
         public string Location { get; set; }
         public ICollection<Vehicle>? AllVehiclesList { get; set; }
         public ICollection<Reservation>? ReservationsList { get; set; }
+        public string EmailAdress { get; set; }
+        public string phoneNumber { get; set; }
     }
 }
