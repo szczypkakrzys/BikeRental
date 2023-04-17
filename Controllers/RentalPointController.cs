@@ -2,6 +2,8 @@
 using BikeRental.DAL;
 using BikeRental.Models;
 using BikeRental.ViewModels;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
@@ -12,12 +14,14 @@ namespace BikeRental.Controllers
     {
         private IRepository<RentalPoint> _rentalPointRepository;
         private readonly IMapper _mapper;
-        public RentalPointController(IMapper mapper)
+        private IValidator<RentalPointViewModel> _validator;
+        public RentalPointController(IMapper mapper, IValidator<RentalPointViewModel> validator)
         {
             _rentalPointRepository = new RepositoryService<RentalPoint>(new DatabaseContext());
             _mapper = mapper;
+            _validator = validator;
             //temporary solution to add rental point
-            _rentalPointRepository.Add(new RentalPoint { Name = "Punkt wypozyczen nr 1", Location = "Bielsko-Biała ul. Przykładowa 14" });
+            _rentalPointRepository.Add(new RentalPoint { Name = "Punkt wypozyczen nr 1", Location = "Bielsko-Biała ul. Przykładowa 14", EmailAdress="wypozyczalnia@athbb.pl", phoneNumber="123456789" });
         }
 
         public IActionResult Index()
@@ -34,6 +38,21 @@ namespace BikeRental.Controllers
         [HttpPost]
         public IActionResult Create(RentalPointViewModel rentalPoint)
         {
+            ValidationResult result = _validator.Validate(rentalPoint);
+            if (!result.IsValid)
+            {
+                //server-side validation testing
+                //var modelStateDictionary = new ModelStateDictionary();
+                //foreach (ValidationFailure failure in result.Errors)
+                //{
+                //    modelStateDictionary.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                //}
+
+                //return ValidationProblem(modelStateDictionary);
+
+                //client-side :)
+                return View(rentalPoint);
+            }
             RentalPoint renatlPointModel = _mapper.Map<RentalPoint>(rentalPoint);
             _rentalPointRepository.Add(renatlPointModel);
             return RedirectToAction("Index");
