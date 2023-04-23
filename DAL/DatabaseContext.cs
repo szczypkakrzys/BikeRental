@@ -1,10 +1,11 @@
 ﻿using BikeRental.Models;
 using Microsoft.EntityFrameworkCore;
 using BikeRental.ViewModels;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace BikeRental.DAL
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext<User>
     {
         public DbSet<Vehicle> Vehicle { get; set; }
         public DbSet<VehicleType> VehicleType { get; set; }
