@@ -11,31 +11,55 @@
     <img class="img-fluid" src="https://images2.giant-bicycles.com/b_white,c_crop,h_600,q_70,w_1920/y11muho9u62fvrlguezt/giant_mtb_banner_navi21.jpg" alt="banner" />
 </div>
 
-<p class="fs-3 mt-3">
-    Co oferujemy:
-</p>
-    <ul class="fs-4">
-        <li>Profesjonalne przygotowanie roweru</li>
-        <li>Ustawienie roweru indywidualnie dla każdego klienta</li>
-        <li>Możliwość odbioru i zwrotu w różnych punktach</li>
-        <li>Wypożyczenie sprzętu niezbędnego na górskim szlaku</li>
-    </ul>
+<p class="fs-2 text-center mt-3 mb-3">NASZE ROWERY</p>
 
-<div class="container mx-auto w-50 mb-4 mt-4"> 
-    <button type="button" class="btn btn-primary btn-lg w-100">Sprawdź naszą ofertę</button>
-</div>
-
-<div class="container-fluid text-center">
-    <div class="row">
-        <div class="col">
-            <img class="img-fluid" src="https://cdn.rosebikes.de/cms/cms.63299fea28ff65.54741827.png" alt="Bikes" />
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" style="background-color: black" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2" style="background-color: black"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"style="background-color: black"></button>
+    </div>
+    <div class="carousel-inner">
+      @*  @foreach(var item in Model)
+        {
+            <div class="carousel-item" >
+                <img src="@item.Image" class="d-block w-100" alt="@item.Model">
+            </div>
+        }*@
+         <div class="carousel-item active" data-bs-interval="4000">
+            
+            <img src="https://kross.eu/media/cache/gallery/rc/zljyawzs/images/38/38297/KRLV1129X19M002406-KR-LEVEL-11.0-NIE-BIA-P-1.jpg" class="d-block w-50 mx-auto" alt="...">
+            
+                <div class="carousel-caption d-none d-md-block">
+                   <p>KROSS Level 11.0</p> 
+                    </div>
+            
         </div>
-        <div class="col">
-            <img class="img-fluid" src="https://www.tradeinn.com/f/13819/138193724/specialized-kenevo-expert-27.5-mtb-electric-bike.jpg" alt="Bikes" />
+        <div class="carousel-item" data-bs-interval="4000">
+            <img src="https://kross.eu/media/cache/gallery/rc/6hltpx2v/images/43/43250/KRSB2ZMUX20M003089-KR-Soil-Boost-2.0-630-XL-zielony-czarny-matowy2.png" class="d-block w-50 mx-auto" alt="...">
         </div>
-        <div class="col">
-            <img class="img-fluid" src="https://dqh479dn9vg99.cloudfront.net/wp-content/uploads/sites/9/2020/11/02213105/giant_fathom_2-970x828.jpg" alt="Bikes" />
+        <div class="carousel-item" data-bs-interval="4000">
+            <img src="https://kross.eu/media/cache/gallery/rc/9jbbdd9a/images/50/50098/KRVB1Z29X20M005659-KR-Level-BOOST-1.0-CZA_GRA-LIM-P-1.jpg" class="d-block w-50 mx-auto" alt="...">
         </div>
     </div>
+   
 </div>
+
+<div class="container mx-auto w-50 mb-4 mt-4"> 
+    <a  asp-controller="Vehicle" asp-action="Index">
+        <button type="button" class="btn btn-primary btn-lg w-100">Sprawdź całą ofertę</button>
+    </a>
+</div>
+
+<p class="fs-3 mt-4">
+    Co oferujemy:
+</p>
+<ul class="fs-4 mb-5" style="list-style-type:none;">
+    <li>🛠 Profesjonalne przygotowanie roweru</li>
+    <li>🚴‍♂️ Ustawienie roweru indywidualnie dla każdego klienta</li>
+    <li>🛎 Możliwość odbioru i zwrotu w różnych punktach</li>
+    <li>🌄 Wypożyczenie sprzętu niezbędnego na górskim szlaku</li>
+    </ul>
+
+
 
