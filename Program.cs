@@ -14,8 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 //    options.UseSqlServer(connectionString));
 builder.Services.AddDbContext<DatabaseContext>();
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<DatabaseContext>();
+    
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -54,6 +56,42 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "MyArea",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    var roles = new[] { "Administrator", "Operator", "User" };
+
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+            await roleManager.CreateAsync(new IdentityRole(role));
+    }
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
+    string email = "admin@admin.com";
+    string password = "Admin123!";
+
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new User();
+        user.UserName = email;
+        user.Email = email;
+   
+        await userManager.CreateAsync(user, password);
+
+        await userManager.AddToRoleAsync(user, "Administrator");
+    }
+}
 
 app.MapRazorPages();
 app.Run();

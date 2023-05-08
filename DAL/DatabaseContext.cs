@@ -19,5 +19,9 @@ namespace BikeRental.DAL
         }
 
         public DbSet<BikeRental.ViewModels.ReservationViewModel>? ReservationViewModel { get; set; }
+
+        public DbSet<BikeRental.ViewModels.VehicleItemViewModel>? VehicleItemViewModel { get; set; }
+
+        public DbSet<BikeRental.ViewModels.VehicleDetailViewModel>? VehicleDetailViewModel { get; set; }
     }
 }
