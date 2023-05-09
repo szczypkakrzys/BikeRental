@@ -9,6 +9,11 @@
         public bool isElectric { get; set; }
         public double RentCost { get; set; }
         public string Image { get; set; }
-        public VehicleType CategoryInfo{ get; set; }
+
+        public Guid? CategoryId { get; set; }
+        public VehicleType CategoryName{ get; set; }
+        public Guid? RentalPointId { get; set; }
+        public RentalPoint? RentalPoint { get; set; }
+        public ICollection<Reservation>? Reservations { get; set; }
     }
 }

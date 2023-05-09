@@ -26,7 +26,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 //FluentValidation
-builder.Services.AddFluentValidation();
+builder.Services.AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters();
 builder.Services.AddScoped <IValidator<VehicleDetailViewModel>, VehicleDetailVmValidator>();
 builder.Services.AddScoped<IValidator<ReservationViewModel>, ReservationVmValidator>();
 builder.Services.AddScoped<IValidator<RentalPointViewModel>, RentalPointVmValidator>();
@@ -90,6 +91,29 @@ using (var scope = app.Services.CreateScope())
         await userManager.CreateAsync(user, password);
 
         await userManager.AddToRoleAsync(user, "Administrator");
+    }
+}
+//creating object which fills InMemoryDatabase with some data for testing purposes ;)
+DbInitializer testData = new DbInitializer();
+//testing user
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+
+    string email = "jkowalski@test.com";
+    string password = "Haslo123!";
+
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new User();
+        user.UserName = email;
+        user.Email = email;
+        user.FirstName = "Jan";
+        user.LastName = "Kowalski";
+
+        await userManager.CreateAsync(user, password);
+
+        await userManager.AddToRoleAsync(user, "User");
     }
 }
 
