@@ -38,6 +38,8 @@ namespace BikeRental.DAL
             builder.Entity<Reservation>()
                 .HasMany(e => e.Vehicles)
                 .WithMany(e => e.Reservations);
+
+            base.OnModelCreating(builder);
         }
 
         public DbSet<BikeRental.ViewModels.ReservationViewModel>? ReservationViewModel { get; set; }
