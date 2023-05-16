@@ -10,45 +10,16 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-left">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ATH Bike Rental System</a>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Vehicle" asp-action="Index">OFERTA</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="" asp-action="">KONTAKT</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                @*TODO*@
-               @* <div class="position-absolute start-50 top-50 translate-middle">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div> *@
-                    <partial name="_LoginPartial" />
-            </div>
-        </nav>
+        <partial name="_Header" />
     </header>
-    <div class="container">
+    <div class="container mt-3">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container text-center">
-            <div class="row">Akademia Techniczno-Humanistyczna</div>
-            <div class="row">43-309 Bielsko-Biała, ul. Willowa 2</div>
-            <div class="row"> tel. +48 33 8279682</div>
-            <div class="row"> e-mail: kontakt@ath.bielsko.pl</div>
-        </div>
+    <footer>
+        <partial name="_Footer" />
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
