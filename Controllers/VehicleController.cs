@@ -5,10 +5,12 @@ using BikeRental.Validators;
 using BikeRental.ViewModels;
 using FluentValidation;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Data;
 using System.Globalization;
 
 namespace BikeRental.Controllers
@@ -32,7 +34,7 @@ namespace BikeRental.Controllers
          
             return View(listViewModel);
         }
-
+        [Authorize(Roles = "Operator, Administrator")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -68,6 +70,7 @@ namespace BikeRental.Controllers
             VehicleDetailViewModel vehicleDetails = _mapper.Map<VehicleDetailViewModel>(info);
             return View(vehicleDetails);
         }
+        [Authorize(Roles = "Operator, Administrator")]
         [HttpGet]
         public IActionResult Edit(Guid id)
         {
@@ -95,7 +98,7 @@ namespace BikeRental.Controllers
             _vehicleRepository.Edit(vehicleModel);
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "Operator, Administrator")]
         [HttpGet]
         public IActionResult Delete(Guid id)
         {

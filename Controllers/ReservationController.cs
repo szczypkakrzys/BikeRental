@@ -4,12 +4,15 @@ using BikeRental.Models;
 using BikeRental.ViewModels;
 using FluentValidation;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Data;
 
 namespace BikeRental.Controllers
 {
+    [Authorize(Roles = "User, Operator, Administrator")]
     public class ReservationController : Controller
     {
         private IRepository<Reservation> _reservationRepository;
