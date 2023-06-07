@@ -35,9 +35,15 @@ namespace BikeRental.DAL
                 .WithMany(e => e.RentalPoints);
             });
 
-            builder.Entity<Reservation>()
-                .HasMany(e => e.Vehicles)
+            //builder.Entity<Reservation>()
+            //    .HasMany(e => e.Vehicles)
+            //    .WithMany(e => e.Reservations);
+
+            builder.Entity<Reservation>(x =>
+            {
+                x.HasOne(e => e.VehicleToReserve)
                 .WithMany(e => e.Reservations);
+            });
 
             base.OnModelCreating(builder);
         }

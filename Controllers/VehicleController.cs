@@ -6,9 +6,11 @@ using BikeRental.ViewModels;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Data;
 using System.Globalization;
@@ -113,8 +115,13 @@ namespace BikeRental.Controllers
             return RedirectToAction("Index");
         }
         
-        public IMapper Mapper => Mapper1;
-
-        public IMapper Mapper1 => _mapper;
+        public IActionResult AddToReservation(Guid Id)
+        {
+            Vehicle vehicleToReserve = _vehicleRepository.GetSingle(Id);
+            VehicleDetailViewModel vehicle = _mapper.Map<VehicleDetailViewModel>(vehicleToReserve);
+            string vehicleSerialized = JsonConvert.SerializeObject(vehicle);
+            return RedirectToAction("Create", "Home", new {area ="Users", vehicleData= vehicleSerialized });
+        }
+ 
     }
 }

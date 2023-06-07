@@ -7,9 +7,10 @@ namespace BikeRental.ViewModels
         public Guid Id { get; set; }
         public DateTime ReservationStart { get; set; }
         public DateTime ReservationEnd { get; set; }
-        public int TotalCost { get; set; }
-        public ICollection<Vehicle> Vehicles { get; set; }
-        public RentalPoint StartRentalPoint { get; set; }
-        public RentalPoint EndRentalPoint { get; set; }
+        public double TotalCost { get; set; }
+        //public ICollection<Vehicle> Vehicles { get; set; }
+        public VehicleDetailViewModel VehicleToReserve { get; set; }
+        public RentalPoint? StartRentalPoint { get; set; }
+        public RentalPoint? EndRentalPoint { get; set; }
     }
 }

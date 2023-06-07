@@ -2,10 +2,13 @@
 using BikeRental.DAL;
 using BikeRental.Models;
 using BikeRental.ViewModels;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 
 namespace BikeRental.Areas.Users.Controllers
@@ -18,12 +21,14 @@ namespace BikeRental.Areas.Users.Controllers
         private readonly UserManager<User> _userManager;
         private IRepository<Reservation> _reservations;
         private readonly IMapper _mapper;
-        public HomeController(DatabaseContext context, UserManager<User> userManager, IMapper mapper)
+        private IValidator<ReservationViewModel> _validator;
+        public HomeController(DatabaseContext context, UserManager<User> userManager, IMapper mapper, IValidator<ReservationViewModel> validator)
         {
             _reservations = new RepositoryService<Reservation>(new DatabaseContext());
             _context = context;
             _userManager = userManager;
             _mapper = mapper;
+            _validator = validator;
         }
         // GET: HomeController
         public IActionResult Index()
@@ -44,27 +49,44 @@ namespace BikeRental.Areas.Users.Controllers
         {
             return View();
         }
-
+       
         // GET: HomeController/Create
-        public ActionResult Create(IEnumerable<VehicleItemViewModel> vehiclesList)
+        public IActionResult Create(string vehicleData)
         {
-            return View();
+            VehicleDetailViewModel VehicleToAdd = JsonConvert.DeserializeObject<VehicleDetailViewModel>(vehicleData);
+            ReservationViewModel reservation = new ReservationViewModel();
+            reservation.VehicleToReserve = VehicleToAdd;
+            reservation.TotalCost = VehicleToAdd.RentCost;
+
+            reservation.ReservationEnd= DateTime.Now.AddDays(2);
+            reservation.ReservationStart=DateTime.Now.AddDays(1);
+           
+            
+            return View(reservation);
         }
 
-        // POST: HomeController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Create(ReservationViewModel reservation)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+
+            Reservation reservationModel = _mapper.Map<Reservation>(reservation);
+            _reservations.Add(reservationModel);
+            return RedirectToAction("Index");
         }
+        // POST: HomeController/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create(IFormCollection collection)
+        //{
+        //    try
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         // GET: HomeController/Edit/5
         public ActionResult Edit(int id)
