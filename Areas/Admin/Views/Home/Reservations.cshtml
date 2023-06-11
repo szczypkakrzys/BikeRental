@@ -1,0 +1,56 @@
+﻿@model IEnumerable<BikeRental.Models.Reservation>
+
+@{
+    ViewData["Title"] = "Reservations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Reservations</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservationEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.userId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isFinished)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReservationStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReservationEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.userId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isFinished)
+            </td>
+           
+            <td>
+                @if (item.isFinished == false ) {
+                    <a asp-action="FinishReservation" asp-route-id="@item.Id">Finish</a>
+                }
+                <a asp-action="DeleteReservation" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

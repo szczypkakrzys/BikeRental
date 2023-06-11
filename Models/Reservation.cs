@@ -15,5 +15,6 @@ namespace BikeRental.Models
         public Guid StartRentalPointId { get; set; }
         public Guid EndRentalPointId { get; set; }
         public string userId { get; set; }
+        public bool isFinished { get; set; } = false;
     }
 }
