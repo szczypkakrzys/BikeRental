@@ -10,7 +10,8 @@ namespace BikeRental.ViewModels
         public double TotalCost { get; set; }
         //public ICollection<Vehicle> Vehicles { get; set; }
         public VehicleDetailViewModel VehicleToReserve { get; set; }
-        public RentalPoint? StartRentalPoint { get; set; }
-        public RentalPoint? EndRentalPoint { get; set; }
+        public RentalPointViewModel StartRentalPoint { get; set; }
+        public RentalPointViewModel  EndRentalPoint { get; set; }
+        public List<RentalPointViewModel> RentalPoints { get; set; }
     }
 }

@@ -5,54 +5,46 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>AllReservations</h1>
+<h1>Moje rezerwacje</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Nowa rezerwacja</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayName("Id")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReservationStart)
+                @Html.DisplayName("Data rozpoczęcia")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReservationEnd)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalCost)
+                @Html.DisplayName("Data zakończenia")
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @if (Model.Any() || Model != null)
+        @foreach (var item in Model)
         {
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReservationStart)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReservationEnd)
-                    </td>
-                    <td>
-                        @Html.DisplayNameFor(modelItem => item.TotalCost)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservationStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservationEnd)
+                </td>
+ 
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

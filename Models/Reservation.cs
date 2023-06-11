@@ -1,4 +1,6 @@
-﻿namespace BikeRental.Models
+﻿using BikeRental.ViewModels;
+
+namespace BikeRental.Models
 {
     public class Reservation
     {
@@ -12,5 +14,6 @@
         public ICollection<RentalPoint> RentalPoints { get; set; }
         public Guid StartRentalPointId { get; set; }
         public Guid EndRentalPointId { get; set; }
+        public string userId { get; set; }
     }
 }

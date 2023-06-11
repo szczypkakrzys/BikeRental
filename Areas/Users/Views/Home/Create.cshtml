@@ -5,50 +5,56 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Utwórz rezerwację</h1>
 
-<h4>ReservationViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ReservationStart" class="control-label"></label>
+                <label asp-for="ReservationStart" class="control-label">Data rozpoczęcia</label>
                 <input asp-for="ReservationStart" class="form-control" />
                 <span asp-validation-for="ReservationStart" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ReservationEnd" class="control-label"></label>
+                <label asp-for="ReservationEnd" class="control-label">Data zakończenia</label>
                 <input asp-for="ReservationEnd" class="form-control" />
                 <span asp-validation-for="ReservationEnd" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TotalCost" class="control-label"></label>
+                <label asp-for="TotalCost" class="control-label">Koszt 1 doby</label>
                 <input asp-for="TotalCost" class="form-control" />
                 <span asp-validation-for="TotalCost" class="text-danger"></span>
             </div>
-            <div class="row">
-      
-        
-            <div class="col">
-                <img class="img-fluid" src=@Model.VehicleToReserve.Image alt="bikePhoto" />
-                    <p class="text-center">Cena za 1 dzień: <b>@Model.VehicleToReserve.RentCost zł </b></p>
-                    <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@Model.VehicleToReserve.Id">Zobacz szczegóły</a>
-            </div>
-        
-    </div>
-                  
-    
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="StartRentalPoint.Id" class="control-label">Punkt wypożyczenia</label>
+                <select asp-for="StartRentalPoint.Id" asp-items="@(new SelectList(Model.RentalPoints, "Id", "Location"))" class="form-select" aria-label="Default select example">
+                        <option>Wybierz punkt</option>
+                </select>
+            </div>
+             <div class="form-group">
+                <label asp-for="EndRentalPoint.Id" class="control-label">Punkt zwrotu</label>
+                <select asp-for="EndRentalPoint.Id" asp-items="@(new SelectList(Model.RentalPoints, "Id", "Location"))" class="form-select" aria-label="Default select example">
+                    <option>Wybierz punkt</option>
+                </select>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <img class="img-fluid" src=@Model.VehicleToReserve.Image alt="bikePhoto" />
+                        <p class="text-center">Cena za 1 dzień: <b>@Model.VehicleToReserve.RentCost zł </b></p>
+                        <p class="text-center">@Model.VehicleToReserve.BrandName @Model.VehicleToReserve.Model</p>    
+                </div>     
+            </div>
+            <div class="form-group text-center">
+                <input type="submit" value="Zamów" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Powrót</a>
 </div>
 
 @section Scripts {

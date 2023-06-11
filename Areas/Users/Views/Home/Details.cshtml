@@ -1,0 +1,48 @@
+﻿@model BikeRental.ViewModels.ReservationViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Szczegóły rezerwacji</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Data rozpoczęcia")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReservationStart)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Data zakończenia")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReservationEnd)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Koszt")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TotalCost)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayName("Punkt wypożyczenia")
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StartRentalPoint.Location)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayName("Punkt zwrotu")
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EndRentalPoint.Location)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edycja</a> |
+    <a asp-action="Index">Powrót</a>
+</div>
